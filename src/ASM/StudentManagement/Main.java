@@ -34,8 +34,18 @@ public class Main {
                     String id = scanner.nextLine();
                     System.out.print("Enter student name: ");
                     String name = scanner.nextLine();
-                    System.out.print("Enter student marks: ");
-                    double marks = scanner.nextDouble();
+
+                    double marks;
+                    while (true) {
+                        System.out.print("Enter student marks (1.0 - 10.0): ");
+                        marks = scanner.nextDouble();
+                        if (marks >= 1.0 && marks <= 10.0) {
+                            break;
+                        } else {
+                            System.out.println("Invalid marks. Please enter a value between 1.0 and 10.0.");
+                        }
+                    }
+                    scanner.nextLine(); // Consume newline
                     manager.addStudent(new Student(id, name, marks));
                     break;
 
@@ -44,10 +54,20 @@ public class Main {
                     id = scanner.nextLine();
                     System.out.print("Enter new name: ");
                     name = scanner.nextLine();
-                    System.out.print("Enter new marks: ");
-                    marks = scanner.nextDouble();
+
+                    while (true) {
+                        System.out.print("Enter new marks (1.0 - 10.0): ");
+                        marks = scanner.nextDouble();
+                        if (marks >= 1.0 && marks <= 10.0) {
+                            break;
+                        } else {
+                            System.out.println("Invalid marks. Please enter a value between 1.0 and 10.0.");
+                        }
+                    }
+                    scanner.nextLine();
                     manager.editStudent(id, name, marks);
                     break;
+
 
                 case 3:
                     System.out.print("Enter student ID you want to delete: ");
