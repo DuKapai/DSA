@@ -101,8 +101,57 @@ public class StudentManager {
             students[index] = students[i];
             students[i] = temp;
         }*/
+
+        mergeSort(students, 0, size - 1, ascending);
         System.out.println(ascending ? "Students sorted by marks (ascending)." : "Students sorted by marks (descending).");
         printAllStudents();
+
+        System.out.println(ascending ? "Students sorted by marks (ascending)." : "Students sorted by marks (descending).");
+        printAllStudents();
+    }
+
+    private void mergeSort(Student[] students, int left, int right, boolean ascending) {
+        if (left < right) {
+            int mid = (left + right) / 2;
+
+            // Sort the first and second halves
+            mergeSort(students, left, mid, ascending);
+            mergeSort(students, mid + 1, right, ascending);
+
+            // Merge the sorted halves
+            merge(students, left, mid, right, ascending);
+        }
+    }
+
+    private void merge(Student[] students, int left, int mid, int right, boolean ascending) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        Student[] leftArray = new Student[n1];
+        Student[] rightArray = new Student[n2];
+
+        // Copy data to temporary arrays
+        System.arraycopy(students, left, leftArray, 0, n1);
+        System.arraycopy(students, mid + 1, rightArray, 0, n2);
+
+        // Merge the temporary arrays
+        int i = 0, j = 0, k = left;
+        while (i < n1 && j < n2) {
+            if ((ascending && leftArray[i].getMarks() <= rightArray[j].getMarks()) ||
+                    (!ascending && leftArray[i].getMarks() >= rightArray[j].getMarks())) {
+                students[k++] = leftArray[i++];
+            } else {
+                students[k++] = rightArray[j++];
+            }
+        }
+
+        while (i < n1) {
+            students[k++] = leftArray[i++];
+        }
+
+        while (j < n2) {
+            students[k++] = rightArray[j++];
+        }
     }
 
     private int customMin(int a, int b) {
